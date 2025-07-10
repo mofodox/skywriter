@@ -1,69 +1,12 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import PostCard, { Post } from './PostCard'
-import { supabase } from '@/lib/supabase'
+import PostCard from './PostCard'
 import { Flame, Sun } from 'lucide-react'
 import { cn } from '@/lib/utils'
-
-type Filter = 'All' | 'Rant' | 'Perfect Day'
+import { usePosts } from '@/lib/PostsContext'
 
 export default function Feed() {
-  const [posts, setPosts] = useState<Post[]>([])
-  const [loading, setLoading] = useState(true)
-  const [filter, setFilter] = useState<Filter>('All')
-
-  useEffect(() => {
-    // Fetch initial posts
-    const fetchPosts = async () => {
-      try {
-        setLoading(true)
-        
-        let query = supabase
-          .from('posts')
-          .select('*')
-          .order('created_at', { ascending: false })
-        
-        // Apply filter if not 'All'
-        if (filter !== 'All') {
-          query = query.eq('category', filter)
-        }
-        
-        const { data, error } = await query
-        
-        if (error) throw error
-        if (data) setPosts(data)
-      } catch (error) {
-        console.error('Error fetching posts:', error)
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    fetchPosts()
-
-    // Set up real-time subscription
-    const subscription = supabase
-      .channel('public:posts')
-      .on('postgres_changes', { 
-        event: 'INSERT', 
-        schema: 'public', 
-        table: 'posts' 
-      }, (payload) => {
-        const newPost = payload.new as Post
-        
-        // Only add the new post to the state if it matches the current filter
-        if (filter === 'All' || newPost.category === filter) {
-          setPosts(currentPosts => [newPost, ...currentPosts])
-        }
-      })
-      .subscribe()
-
-    // Clean up subscription
-    return () => {
-      subscription.unsubscribe()
-    }
-  }, [filter])
+  const { posts, loading, filter, setFilter } = usePosts()
 
   return (
     <div>

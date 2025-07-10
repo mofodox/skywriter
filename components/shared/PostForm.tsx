@@ -7,6 +7,7 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { Label } from '@/components/ui/label'
 import { supabase } from '@/lib/supabase'
 import { Send, Flame, Sun } from 'lucide-react'
+import { usePosts } from '@/lib/PostsContext'
 
 export default function PostForm() {
   const [content, setContent] = useState('')
@@ -14,6 +15,8 @@ export default function PostForm() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState(false)
+  
+  const { addPost } = usePosts()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -22,11 +25,17 @@ export default function PostForm() {
     setSuccess(false)
 
     try {
-      const { error } = await supabase
+      const { data, error } = await supabase
         .from('posts')
         .insert([{ content, category }])
+        .select()
 
       if (error) throw error
+
+      // If we have the returned data, add it to the posts context
+      if (data && data.length > 0) {
+        addPost(data[0])
+      }
 
       // Reset form on success
       setContent('')
