@@ -46,7 +46,7 @@ export default function Feed() {
         </button>
       </div>
 
-      <div className="flex-grow overflow-y-auto">
+      <div className="flex-grow overflow-y-auto pr-4">
         {loading ? (
           <div className="flex justify-center py-8">
             <p className="text-muted-foreground">Loading posts...</p>

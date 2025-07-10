@@ -25,9 +25,9 @@ export default function Home() {
           <div className="w-1/2 p-6 border-l border-gray-200 h-screen flex flex-col feed-column">
             <div className="max-w-md mx-auto w-full flex flex-col h-full">
               <div className="flex-none">
-                <h2 className="text-xl font-semibold mb-4">Recent Posts</h2>
+                {/* <h2 className="text-xl font-semibold mb-4">Recent Posts</h2> */}
               </div>
-              <div className="flex-grow overflow-y-auto">
+              <div className="flex-grow overflow-y-auto pr-4">
                 <Feed />
               </div>
             </div>
