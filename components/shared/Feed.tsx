@@ -9,10 +9,8 @@ export default function Feed() {
   const { posts, loading, filter, setFilter } = usePosts()
 
   return (
-    <div>
-      <h2 className="text-xl font-semibold mb-4">Recent Posts</h2>
-      
-      <div className="flex border-b mb-6">
+    <div className="h-full flex flex-col">
+      <div className="flex border-b mb-6 sticky top-0 bg-white z-10">
         <button 
           onClick={() => setFilter('All')}
           className={cn(
@@ -48,19 +46,21 @@ export default function Feed() {
         </button>
       </div>
 
-      {loading ? (
-        <div className="flex justify-center py-8">
-          <p className="text-muted-foreground">Loading posts...</p>
-        </div>
-      ) : posts.length === 0 ? (
-        <div className="flex justify-center py-12">
-          <p className="text-muted-foreground">No posts yet. Be the first to share!</p>
-        </div>
-      ) : (
-        <div className="space-y-6">
-          {posts.map((post) => <PostCard key={post.id} post={post} />)}
-        </div>
-      )}
+      <div className="flex-grow overflow-y-auto">
+        {loading ? (
+          <div className="flex justify-center py-8">
+            <p className="text-muted-foreground">Loading posts...</p>
+          </div>
+        ) : posts.length === 0 ? (
+          <div className="flex justify-center py-12">
+            <p className="text-muted-foreground">No posts yet. Be the first to share!</p>
+          </div>
+        ) : (
+          <div className="space-y-6 pb-6">
+            {posts.map((post) => <PostCard key={post.id} post={post} />)}
+          </div>
+        )}
+      </div>
     </div>
   )
 } 

@@ -132,8 +132,36 @@
 }
 
 /* Responsive adjustments */
-@media (max-width: 640px) {
-  .filter-buttons {
-    @apply flex-wrap justify-center gap-2;
+@media (max-width: 768px) {
+  main > div {
+    flex-direction: column;
   }
+  
+  main > div > div {
+    width: 100% !important;
+    height: auto !important;
+  }
+  
+  .feed-column {
+    height: 500px !important;
+    margin-top: 20px;
+  }
+}
+
+/* Custom scrollbar */
+.overflow-y-auto::-webkit-scrollbar {
+  width: 6px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.2);
 }
