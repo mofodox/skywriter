@@ -83,21 +83,24 @@ export default function Reactions({ postId }: ReactionsProps) {
     }
   }
 
-  const reactionEmojis: Record<ReactionType, { emoji: string, label: string, bgColor: string }> = {
+  const reactionEmojis: Record<ReactionType, { emoji: string, label: string, bgColor: string, activeColor: string }> = {
     love: { 
       emoji: '❤️', 
       label: 'Love',
-      bgColor: 'bg-red-100 hover:bg-red-200'
+      bgColor: 'bg-red-50 hover:bg-red-100',
+      activeColor: 'bg-red-100'
     },
     support: { 
       emoji: '👍', 
       label: 'Support',
-      bgColor: 'bg-green-100 hover:bg-green-200'
+      bgColor: 'bg-green-50 hover:bg-green-100',
+      activeColor: 'bg-green-100'
     },
     hug: { 
       emoji: '🤗', 
       label: 'Hug',
-      bgColor: 'bg-blue-100 hover:bg-blue-200'
+      bgColor: 'bg-blue-50 hover:bg-blue-100',
+      activeColor: 'bg-blue-100'
     }
   }
 
@@ -106,22 +109,22 @@ export default function Reactions({ postId }: ReactionsProps) {
   }
 
   return (
-    <div className="flex items-center gap-2 mt-3 pt-3 border-t">
-      {(Object.entries(reactionEmojis) as [ReactionType, typeof reactionEmojis[ReactionType]][]).map(([type, { emoji, label, bgColor }]) => (
+    <div className="flex items-center gap-3 mt-2">
+      {(Object.entries(reactionEmojis) as [ReactionType, typeof reactionEmojis[ReactionType]][]).map(([type, { emoji, label, bgColor, activeColor }]) => (
         <button
           key={type}
           onClick={() => handleReaction(type)}
           className={cn(
             "flex items-center justify-center rounded-full w-8 h-8 transition-all relative",
             userReaction === type 
-              ? `${bgColor} ring-2 ring-offset-1 ring-gray-300` 
-              : `bg-gray-100 hover:${bgColor}`
+              ? activeColor
+              : bgColor
           )}
           aria-label={label}
         >
           <span className="text-sm">{emoji}</span>
           {reactions[type] > 0 && (
-            <span className="absolute -top-1 -right-1 bg-gray-200 text-xs rounded-full w-4 h-4 flex items-center justify-center">
+            <span className="absolute -top-1 -right-1 bg-white text-xs rounded-full w-4 h-4 flex items-center justify-center border border-gray-200 font-medium">
               {reactions[type]}
             </span>
           )}

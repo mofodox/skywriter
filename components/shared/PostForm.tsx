@@ -44,7 +44,7 @@ export default function PostForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6 w-full">
+    <form onSubmit={handleSubmit} className="space-y-6">
       <Textarea
         placeholder="Share a rant or a perfect day..."
         value={content}

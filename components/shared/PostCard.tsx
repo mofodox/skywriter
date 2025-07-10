@@ -44,7 +44,7 @@ export default function PostCard({ post }: { post: Post }) {
         </div>
       </div>
       <CardContent className="pt-3 pb-4">
-        <p className="whitespace-pre-wrap">{post.content}</p>
+        <p className="whitespace-pre-wrap mb-2">{post.content}</p>
         <Reactions postId={post.id} />
       </CardContent>
     </Card>

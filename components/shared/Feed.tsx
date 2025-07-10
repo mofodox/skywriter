@@ -66,7 +66,7 @@ export default function Feed() {
   }, [filter])
 
   return (
-    <div className="space-y-4 mt-8 w-full">
+    <div>
       <h2 className="text-xl font-semibold mb-4">Recent Posts</h2>
       
       <div className="flex border-b mb-6">
@@ -75,7 +75,7 @@ export default function Feed() {
           className={cn(
             "flex-1 py-2 text-center font-medium",
             filter === 'All' 
-              ? "border-b-2 border-primary text-primary" 
+              ? "border-b-2 border-blue-500 text-blue-500" 
               : "text-gray-500 hover:text-gray-700"
           )}
         >
@@ -114,7 +114,7 @@ export default function Feed() {
           <p className="text-muted-foreground">No posts yet. Be the first to share!</p>
         </div>
       ) : (
-        <div className="space-y-4">
+        <div className="space-y-6">
           {posts.map((post) => <PostCard key={post.id} post={post} />)}
         </div>
       )}
