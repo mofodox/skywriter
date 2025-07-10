@@ -2,6 +2,7 @@ import { Card, CardContent } from '@/components/ui/card'
 import { cn } from '@/lib/utils'
 import { Flame, Sun, Clock } from 'lucide-react'
 import { formatDistanceToNow } from 'date-fns'
+import Reactions from './Reactions'
 
 export type Post = {
   id: string
@@ -44,6 +45,7 @@ export default function PostCard({ post }: { post: Post }) {
       </div>
       <CardContent className="pt-3 pb-4">
         <p className="whitespace-pre-wrap">{post.content}</p>
+        <Reactions postId={post.id} />
       </CardContent>
     </Card>
   )
